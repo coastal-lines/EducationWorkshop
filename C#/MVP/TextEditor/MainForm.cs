@@ -33,17 +33,29 @@ namespace TextEditor
             InitializeComponent();
 
             butOpenFile.Click += new EventHandler(butOpenFile_Click);
+
+            btnSaveFile.Click += new EventHandler(butSaveFile_Click);
+
+            fldContent.TextChanged += fldContent_TextChanged;
         }
 
+        #region Event forwarding
         void butOpenFile_Click(object sender, EventArgs e)
         {
             if (FileOpenClick != null) FileOpenClick(this, EventArgs.Empty);
         }
 
-        void butSaFile_Click(object sender, EventArgs e)
+        void butSaveFile_Click(object sender, EventArgs e)
         {
             if (FileOpenClick != null) FileOpenClick(this, EventArgs.Empty);
         }
+
+        private void fldContent_TextChanged(object sender, EventArgs e)
+        {
+            if (ContentChanged != null) ContentChanged(this, EventArgs.Empty);
+        }
+
+        #endregion
 
         public string FilePath 
         {
