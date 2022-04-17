@@ -7,14 +7,21 @@ using System.Windows.Forms;
 
 namespace TextEditor
 {
-    public class MessageService
+    public interface IMessageService
+    {
+        void ShowMessage(string message);
+        void ShwoExclamation(string exclamation);
+        void ShowError(string error);
+    }
+
+    public class MessageService : IMessageService
     {
         public void ShowMessage(string message)
         {
             MessageBox.Show(message, "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        public void ShowExclamation(string exclamation)
+        public void ShwoExclamation(string exclamation)
         {
             MessageBox.Show(exclamation, "Exclamation", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
         }
