@@ -37,6 +37,10 @@ namespace TextEditor
             btnSaveFile.Click += new EventHandler(butSaveFile_Click);
 
             fldContent.TextChanged += fldContent_TextChanged;
+
+            butSelectFile.Click += butSelectFile_Click;
+
+            numFont.ValueChanged += numFont_ValueChanged;
         }
 
         #region Event forwarding
@@ -57,12 +61,14 @@ namespace TextEditor
 
         #endregion
 
-        public string FilePath 
+        #region IMainForm
+
+        public string FilePath
         {
-            get { return fldFilePath.Text; }      
+            get { return fldFilePath.Text; }
         }
 
-        public string Content 
+        public string Content
         {
             get { return fldContent.Text; }
             set { fldContent.Text = value; }
@@ -76,5 +82,25 @@ namespace TextEditor
         public event EventHandler FileOpenClick;
         public event EventHandler FileSaveClick;
         public event EventHandler ContentChanged;
+
+        #endregion
+
+        private void butSelectFile_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog dlg = new OpenFileDialog();
+            dlg.Filter = "Text files|*.txt|All files|*.*";
+
+            if (dlg.ShowDialog() == DialogResult.OK)
+            {
+                fldContent.Text = dlg.FileName;
+
+                if (FileOpenClick != null) FileOpenClick(this, EventArgs.Empty);
+            }
+        }
+
+        private void numFont_ValueChanged(object sender, EventArgs e)
+        {
+            fldContent.Font = new Font("Calibri", (float)numFont.Value);
+        }
     }
 }
