@@ -5,15 +5,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TextEditor
+namespace TextEditor.BL
 {
     public interface IFileManager
     {
         string GetContent(string filePath);
+
         string GetContent(string filePath, Encoding encoding);
+
         void SaveContent(string content, string filePath);
+
         void SaveContent(string content, string filePath, Encoding encoding);
-        int GeSymbolCount(string content);
+
+        int GetSymbolCount(string content);
+
         bool IsExist(string filePath);
     }
 
@@ -47,7 +52,7 @@ namespace TextEditor
             File.WriteAllText(filePath, content, encoding);
         }
 
-        public int GeSymbolCount(string content)
+        public int GetSymbolCount(string content)
         {
             return content.Length;
         }

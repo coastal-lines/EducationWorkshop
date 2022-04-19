@@ -25,7 +25,6 @@ namespace TextEditor
         event EventHandler ContentChanged;
     }
 
-
     public partial class MainForm : Form, IMainForm
     {
         public MainForm()
@@ -51,7 +50,7 @@ namespace TextEditor
 
         void butSaveFile_Click(object sender, EventArgs e)
         {
-            if (FileOpenClick != null) FileOpenClick(this, EventArgs.Empty);
+            if (FileSaveClick != null) FileSaveClick(this, EventArgs.Empty);
         }
 
         private void fldContent_TextChanged(object sender, EventArgs e)
@@ -92,7 +91,7 @@ namespace TextEditor
 
             if (dlg.ShowDialog() == DialogResult.OK)
             {
-                fldContent.Text = dlg.FileName;
+                fldFilePath.Text = dlg.FileName;
 
                 if (FileOpenClick != null) FileOpenClick(this, EventArgs.Empty);
             }
