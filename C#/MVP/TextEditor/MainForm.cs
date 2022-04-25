@@ -14,7 +14,7 @@ namespace TextEditor
 
         event EventHandler FileOpenClick;
 
-        event EventHandler FileSaveClick;
+        //event EventHandler FileSaveClick;
 
         event EventHandler ContentChanged;
     }
@@ -27,7 +27,7 @@ namespace TextEditor
 
             butOpenFile.Click += new EventHandler(butOpenFile_Click);
 
-            btnSaveFile.Click += new EventHandler(butSaveFile_Click);
+            //btnSaveFile.Click += new EventHandler(butSaveFile_Click);
 
             fldContent.TextChanged += fldContent_TextChanged;
 
@@ -42,10 +42,12 @@ namespace TextEditor
             if (FileOpenClick != null) FileOpenClick(this, EventArgs.Empty);
         }
 
+        /*
         void butSaveFile_Click(object sender, EventArgs e)
         {
             if (FileSaveClick != null) FileSaveClick(this, EventArgs.Empty);
         }
+        */
 
         private void fldContent_TextChanged(object sender, EventArgs e)
         {
@@ -73,7 +75,7 @@ namespace TextEditor
         }
 
         public event EventHandler FileOpenClick;
-        public event EventHandler FileSaveClick;
+        //public event EventHandler FileSaveClick;
         public event EventHandler ContentChanged;
 
         #endregion

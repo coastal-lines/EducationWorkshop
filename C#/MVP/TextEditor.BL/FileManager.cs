@@ -9,9 +9,9 @@ namespace TextEditor.BL
 
         string GetContent(string filePath, Encoding encoding);
 
-        void SaveContent(string content, string filePath);
+        //void SaveContent(string content, string filePath);
 
-        void SaveContent(string content, string filePath, Encoding encoding);
+        //void SaveContent(string content, string filePath, Encoding encoding);
 
         int GetSymbolCount(string content);
 
@@ -38,6 +38,7 @@ namespace TextEditor.BL
             return content;
         }
 
+        /*
         public void SaveContent(string content, string filePath)
         {
             SaveContent(filePath, content, _defaultEncoding);
@@ -45,8 +46,9 @@ namespace TextEditor.BL
 
         public void SaveContent(string content, string filePath, Encoding encoding)
         {
-            File.WriteAllText(filePath, content, encoding);
+          File.WriteAllText(filePath, content, encoding);
         }
+        */
 
         public int GetSymbolCount(string content)
         {
