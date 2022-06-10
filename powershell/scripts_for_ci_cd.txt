@@ -1,0 +1,25 @@
+#check folder and if not - create new
+if (-not(Test-Path -Path "c:\folder\")) {
+    New-Item -ItemType directory -Path c:\folder\
+}
+
+#get installed apps and remove one of them
+$apps = Get-ItemProperty HKLM:\Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\*  | Select-Object DisplayName,Publisher
+foreach($app in $apps) {   
+    if($app.DisplayName -eq "%ApplicationName%" -and $app.Publisher -eq "%PublisherName%"){
+        Write-Output $app
+        #uninstall
+        $app = Get-WmiObject -Class Win32_Product | Where-Object { 
+            $_.Name -match "%ApplicationName%" 
+        }
+        $app.Uninstall()
+        Start-Sleep -Seconds 120
+
+        #double check if application was installed by msi file
+        MsiExec.exe /x C:\%ApplicationName%.msi /quiet /noreboot
+        Start-Sleep -Seconds 120
+        
+        Write-Output "---%ApplicationName% was removed---"
+    }
+}
+
