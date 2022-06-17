@@ -30,3 +30,5 @@ foreach($app in $apps) {
     }
 }
 
+#silent install for msi
+Start-Process msiexec.exe -Wait -ArgumentList '/I C:\Installer.msi CMDLINE=/DEFAULT_INSTALL_DIR="c:\folder\" /quiet'
