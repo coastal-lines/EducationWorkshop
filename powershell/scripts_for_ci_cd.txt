@@ -32,3 +32,33 @@ foreach($app in $apps) {
 
 #silent install for msi
 Start-Process msiexec.exe -Wait -ArgumentList '/I C:\Installer.msi CMDLINE=/DEFAULT_INSTALL_DIR="c:\folder\" /quiet'
+
+#download artifact
+#get artifacts by build id
+$wget = iwr 'http://teamcity.com/rest/builds/%BuildID%/artifacts/'`
+-Headers @{ 'Authorization' = $authorization }
+Write-Output "Artifacts are:"
+$wget.Content
+
+#prepare link for downloading artifact
+$doc = new-object "System.Xml.XmlDocument"
+$doc.LoadXml($wget.Content)
+$root = $doc.DocumentElement
+$rawlink = $root.ChildNodes[1].href
+
+$link = $rawlink.Replace('id:', '')
+$link = $link.Replace('metadata', 'content')
+$mainhost = "http://teamcity.com"
+$url = -join($mainhost, $link)
+Write-Output "Artifact link is:"
+$url
+
+#download artifact
+$ProgressPreference = 'SilentlyContinue'
+$WebClient = New-Object System.Net.WebClient
+$source = $url
+$Filename = [System.IO.Path]::GetFileName($source)
+$dest = -join($path_folder_for_zip, $Filename)
+$WebClient.Headers.Add("Authorization", $authorization)
+$WebClient.DownloadFile($source, $dest)
+Write-Output "Artifact was downloaded"
