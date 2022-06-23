@@ -113,5 +113,12 @@ namespace AppiumWADCourse
             WindowsDriver<WindowsElement> session = new WindowsDriver<WindowsElement>(new Uri("http://127.0.0.1:4723"), appiumOptions);
             session.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5); //global waiting
         }
+
+        public void LaunchClock()
+        {
+            AppiumOptions appiumOptions = new AppiumOptions();
+            appiumOptions.AddAdditionalCapability("app", "Microsoft.WindowsAlarms_8wekyb3d8bbwe!App");
+            WindowsDriver<WindowsElement> session = new WindowsDriver<WindowsElement>(new Uri("http://127.0.0.1:4723"), appiumOptions);
+        }
     }
 }
