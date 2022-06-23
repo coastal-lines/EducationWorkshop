@@ -10,6 +10,7 @@ namespace AppiumWADCourse
     {
         static void Main(string[] args)
         {
+            new AppiumAndWAD().StartWithoutWADByAppiumServiceBuilder();
         }
     }
 }
