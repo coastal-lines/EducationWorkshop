@@ -16,7 +16,7 @@ namespace MSTestOverview
             WindowsDriver<WindowsElement> session = new WindowsDriver<WindowsElement>(new Uri("http://127.0.0.1:4723"), appiumOptions);
             session.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5); //global waiting
 
-            Assert.AreEqual("Alarms & Clock", session.Title.ToString(), "Wrong title of app");
+            Assert.AreEqual("Alarms & Clock", session.Title.ToString(), $"Wrong title of WindowsAlarms: should be {"Alarms & Clock"} but was {session.Title.ToString()}");
 
             session.Quit();
         }
