@@ -1,0 +1,9 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="WinFormsTests.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="ApplicationPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\Work2\Projects\GIT\EducationWorkshop\WinAppdriver_automation\WinFormsTests\Data\Application+under+test\DoNotDistrurbMortgageCalculatorFrom1999.exe</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
