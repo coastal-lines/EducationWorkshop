@@ -11,7 +11,7 @@ namespace WinFormsTests
         static WindowsDriver<WindowsElement> sessionWinForm;
 
         [ClassInitialize]
-        public static void SetupDriver()
+        public static void SetupDriver(TestContext testContext)
         {
             AppiumOptions appiumOptions = new AppiumOptions();
             //appiumOptions.AddAdditionalCapability("app", @"C:\Work2\Projects\GIT\EducationWorkshop\WinAppdriver_automation\WinFormsTests\Data\Application+under+test\DoNotDistrurbMortgageCalculatorFrom1999.exe");
@@ -22,7 +22,10 @@ namespace WinFormsTests
         [TestMethod]
         public void CheckBoxTest()
         {
-            
+            var check = sessionWinForm.FindElementByName("checkBox1");
+            check.Click();
+
+            System.Threading.Thread.Sleep(1000);
         }
     }
 }
