@@ -1,7 +1,9 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Windows;
+using OpenQA.Selenium.Support.UI;
 
 namespace WinFormsTests
 {
@@ -26,6 +28,30 @@ namespace WinFormsTests
             check.Click();
 
             System.Threading.Thread.Sleep(1000);
+        }
+
+        [TestMethod]
+        public void ComboTest()
+        {
+            var combo = sessionWinForm.FindElementByAccessibilityId("comboBox1");
+            var open = combo.FindElementByName("Open");
+            combo.SendKeys(Keys.Down);
+            open.Click();
+
+            //Element "/ListITem//" is a tag
+            var listItems = combo.FindElementsByTagName("ListItem");
+            Assert.AreEqual(6, listItems.Count, "Wrong number of list items");
+
+            //Waiting amount of items
+            foreach (var comboKid in listItems)
+            {
+                if(comboKid.Text == "NJ")
+                {
+                    WebDriverWait wait = new WebDriverWait(sessionWinForm, TimeSpan.FromSeconds(10));
+                    wait.Until(x => comboKid.Displayed);
+                    comboKid.Click();
+                }
+            }
         }
     }
 }
