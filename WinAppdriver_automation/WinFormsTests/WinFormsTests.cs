@@ -43,11 +43,11 @@ namespace WinFormsTests
             Assert.AreEqual(6, listItems.Count, "Wrong number of list items");
 
             //Waiting amount of items
+            WebDriverWait wait = new WebDriverWait(sessionWinForm, TimeSpan.FromSeconds(10));
             foreach (var comboKid in listItems)
             {
                 if(comboKid.Text == "NJ")
                 {
-                    WebDriverWait wait = new WebDriverWait(sessionWinForm, TimeSpan.FromSeconds(10));
                     wait.Until(x => comboKid.Displayed);
                     comboKid.Click();
                 }
