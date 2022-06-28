@@ -10,7 +10,7 @@ namespace AppiumWADCourse
     {
         static void Main(string[] args)
         {
-            new AppiumAndWAD().LaunchClock();
+            new AppiumAndWAD().ConnectToAlreadyOpenedApplication();
         }
     }
 }

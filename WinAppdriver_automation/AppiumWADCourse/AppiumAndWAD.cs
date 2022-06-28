@@ -7,6 +7,8 @@ using OpenQA.Selenium.Appium.Windows;
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Remote;
 using OpenQA.Selenium.Appium.Service;
+using System.Diagnostics;
+using OpenQA.Selenium;
 
 namespace AppiumWADCourse
 {
@@ -119,6 +121,58 @@ namespace AppiumWADCourse
             AppiumOptions appiumOptions = new AppiumOptions();
             appiumOptions.AddAdditionalCapability("app", "Microsoft.WindowsAlarms_8wekyb3d8bbwe!App");
             WindowsDriver<WindowsElement> session = new WindowsDriver<WindowsElement>(new Uri("http://127.0.0.1:4723"), appiumOptions);
+        }
+
+        public void ConnectToAlreadyOpenedApplication()
+        {
+            AppiumOptions options = new AppiumOptions();
+            options.AddAdditionalCapability("app", "Root");
+
+            WindowsDriver<WindowsElement> session = new WindowsDriver<WindowsElement>(new Uri("http://127.0.0.1:4723"), options);
+
+            AppiumOptions windowOptions = null;
+            WindowsDriver<WindowsElement> sessionSecondBest = null;
+
+            var listOfAllWindows = session.FindElementsByXPath(@"//Window");
+
+            Debug.WriteLine($"Elements found: {listOfAllWindows.Count}");
+
+
+            foreach (var window in listOfAllWindows)
+            {
+                Console.WriteLine($"{window.Text}");
+
+                if (window.Displayed && window.Text.Contains("Calculator"))
+                {
+                    var windowHandle = window.GetAttribute("NativeWindowHandle");
+                    Console.WriteLine($"Window Handle: {windowHandle}");
+
+                    var handleInt = (int.Parse(windowHandle)).ToString("x");
+                    windowOptions = new AppiumOptions();
+                    windowOptions.AddAdditionalCapability("appTopLevelWindow", handleInt);
+                    break;
+                }
+            }
+
+            if (windowOptions != null)
+            {
+                sessionSecondBest = new WindowsDriver<WindowsElement>(new Uri("http://127.0.0.1:4723"), windowOptions);
+                sessionSecondBest.Keyboard.SendKeys(Keys.Escape);
+                sessionSecondBest.Keyboard.SendKeys("2*2" + Keys.Enter);
+            }
+
+            /*
+             https://github.com/microsoft/WinAppDriver/wiki/Frequently-Asked-Questions#what-to-do-when-an-application-has-a-splash-screen-or-winappdriver-fails-to-recognize-the-correct-window
+            When and how to attach to an existing App Window
+            In some cases, you may want to test applications that are not launched in a conventional way like
+            shown above. For instance, the Cortana application is always running and will not launch a
+            UI window until triggered through Start Menu or a keyboard shortcut. In this case, you can create a
+            new session in Windows Application Driver by providing the application top level window handle as
+            a hex string (E.g. 0xB822E2). This window handle can be retrieved from various methods including 
+            the Desktop Session mentioned above. This mechanism can also be used for applications that have
+            unusually long startup times. Below is an example of creating a test session for the Cortana app
+            after launching the UI using a keyboard shortcut and locating the window using the Desktop Session.
+             */
         }
     }
 }
